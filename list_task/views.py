@@ -10,8 +10,10 @@ from list_task.serializers import TaskSerializer,UserSerializer
 def task_list(request):
     if request.method == 'GET':
         task = Task.objects.all()
-        serializer = TaskSerializer(task, many=True)
-        return Response(serializer.data)
+        if task.exists():
+            serializer = TaskSerializer(task, many=True)
+            return Response(serializer.data)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'POST':
         serializer = TaskSerializer(data=request.data)
@@ -46,8 +48,9 @@ def task_detail(request,id_task):
 def user_list(request):
     if request.method=='GET':
         user = Users.objects.all()
-        serializer = UserSerializer(user,many=True)
-        return Response(serializer.data)
+        if user.exists():
+            serializer = UserSerializer(user,many=True)
+            return Response(serializer.data)
     elif request.method == 'POST':
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -80,7 +83,8 @@ def user_detail(request,id_user):
 @api_view(['GET'])
 def task_date(request,date):
     if request.method=='GET':
-        task = Task.objects.filter(term=date)
-        serializer = TaskSerializer(task,many=True)
-        return Response(serializer.data)
+        task = Task.objects.filter(term__contains=date)
+        if task.exists():
+            serializer = TaskSerializer(task,many=True)
+            return Response(serializer.data)
     return  Response(status=status.HTTP_204_NO_CONTENT)
