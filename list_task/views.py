@@ -1,12 +1,15 @@
+from _warnings import filters
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from list_task.models import Task, Users
 from list_task.serializers import TaskSerializer,UserSerializer
-
+from rest_framework import generics
+from rest_framework import filters
 
 
 @api_view(['GET', 'POST'])
+
 def task_list(request):
     if request.method == 'GET':
         task = Task.objects.all()
@@ -41,6 +44,8 @@ def task_detail(request,id_task):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 
@@ -88,3 +93,10 @@ def task_date(request,date):
             serializer = TaskSerializer(task,many=True)
             return Response(serializer.data)
     return  Response(status=status.HTTP_204_NO_CONTENT)
+
+class TasksList(generics.ListCreateAPIView):
+    serializer_class = TaskSerializer
+    queryset = Task.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('title','term')
+
