@@ -51,8 +51,9 @@ class DetailUser(generics.RetrieveUpdateDestroyAPIView):
         #Распоковываю массив значений хранящийся в запросе к серверу
         if(request.user!=self.queryset.get(*args,**kwargs)):
             #Вызыв функции удаления, передаю параметры запроса
+            username = self.queryset.get(*args,**kwargs).username;
             self.destroy(request,*args,**kwargs)
-            return Response({'Все ок': 'Вы удалили себя!',})
+            return Response({'ok': 'You delete user - '+username,})
             #Просмотр значений и ключей return Response(kwargs)
         #return Response(unicode(self.queryset.get(*args,**kwargs)))
         #Можно обращаться к полям return Response(self.request.user.username)
