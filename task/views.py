@@ -56,7 +56,7 @@ class DetailUser(generics.RetrieveUpdateDestroyAPIView):
             #Просмотр значений и ключей return Response(kwargs)
         #return Response(unicode(self.queryset.get(*args,**kwargs)))
         #Можно обращаться к полям return Response(self.request.user.username)
-        #return Response({'error': 'Вы не можите удалить себя!',})
+        return Response({'error': 'Вы не можите удалить себя!',})
 
 """
 class TaskListByUser(APIView):
