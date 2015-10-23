@@ -1,15 +1,17 @@
+# -*- coding: utf-8 -*-
 from rest_framework import generics
-from .permission import IsAdminUser
+from rest_framework.response import Response
 
-from django.contrib.auth.models import User
-from users.serializer import UserSerializer
+from users.mixin import UserMixin
 
 
-class UserList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class UserList(UserMixin,generics.ListCreateAPIView):
+    pass
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAdminUser,)
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class UserDetail(UserMixin,generics.RetrieveUpdateDestroyAPIView):
+
+    def delete(self, request, *args, **kwargs):
+        if(request.user.id!= int(kwargs['pk'])):
+            self.destroy(request,*args,**kwargs)
+            return Response({'ok': 'You delete ',})
+        return Response({'error': 'Вы не можите удалить себя!',})

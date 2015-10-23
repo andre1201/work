@@ -7,7 +7,8 @@ urlpatterns = [
     url(r'^$', views.api_root, name = 'Route'),
     url(r'^filter/$', views.FilterTask.as_view() , name = 'FilterTask'),
     url(r'^user/(?P<pk>\d+)/$', views.DetailUser.as_view() , name = 'DetailUser'),
-    url(r'^list/$', views.TaskListAdmin.as_view() , name = 'TaskListAdmin'),
+    url(r'^list/$', views.TaskList.as_view() , name = 'TaskList'),
+    url(r'^list/(?P<pk>\d+)$', views.TaskDetail.as_view() , name = 'TaskDetail'),
     url(r'^test/(?P<pk>\d+)$', views.TestView.as_view() , name = 'Test'),
 
 ]
