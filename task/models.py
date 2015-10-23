@@ -7,8 +7,8 @@ class Task(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=50)
     text = models.TextField()
-    date_finaly = models.DateTimeField(blank=True, null=True)
-    finaly = models.BooleanField(blank=True)
+    date_finaly = models.DateTimeField(null=True)
+    finaly = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.title

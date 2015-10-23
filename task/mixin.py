@@ -20,6 +20,5 @@ class MixinTaskAdmin():
     serializer_class = TaskSerializer
     permission_classes = (IsAdminUser,)
 
-
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
