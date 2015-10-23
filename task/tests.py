@@ -39,9 +39,8 @@ class TaskTestCase(APITestCase):
         self.assertEqual(Task.objects.get().title, 'title')
 
     def test_get_task(self):
-        task = Task.objects.create('title','text','none','none',user)
-        serializer = UserSerializer(user)
-        request.user = serializer.data
-        response = self.client.get(url, data, format='json')
+        task = Task(title = 'title',text = 'text',date_finaly = '2015-10-16T23:21:00+03:00',user = self.user)
+        url = 'list/1'
+        response = self.client.get(url,  format='json')
 
 
