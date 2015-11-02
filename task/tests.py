@@ -85,7 +85,7 @@ class TasksTestCaseUnit(unittest.TestCase):
 
     def setUp(self):
         super(TasksTestCaseUnit, self).setUp()
-        self.client.login(username = self.user.get_username(),password = '123123')
+        self.client.login(username = 'Andre',password = '123123')
 
 
     def test_create_task(self):
@@ -93,7 +93,7 @@ class TasksTestCaseUnit(unittest.TestCase):
             "title": "title",
             "text": "teeeext"
         }
-        response = self.client.post("task/list", {'data':data})
+        response = self.client.post(reverse('TaskList'), json= data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
 
