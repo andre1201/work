@@ -31,14 +31,12 @@ class TaskTestCase(APITestCase):
 
 
     def test_create_task(self):
-        url = reverse('TaskList')
         data = {
             "title": "title",
             "text": "teeeext"
         }
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(reverse('TaskList'), data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Task.objects.get(pk=1).title, 'title')
 
 
     def test_get_task_list(self):
@@ -65,6 +63,8 @@ class TaskTestCase(APITestCase):
         data = TaskSerializer(self.task).data
         response = self.client.delete(reverse('TaskDetail',args=[self.task.id]),data, format='json' )
         self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
+
+
 
 
 
