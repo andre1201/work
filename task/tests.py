@@ -1,7 +1,7 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 from django.core.urlresolvers import reverse
-from django.test import Client
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 from .models import Task
@@ -79,8 +79,10 @@ class TasksTestCaseUnit(unittest.TestCase):
         super(TasksTestCaseUnit, cls).setUpClass()
         cls.client = APIClient()
         cls.user = User.objects.create_superuser('Andre','asdasd@sd.re',123123)
-        cls.task = Task(pk=2,title = 'title task',text = 'text',date_finaly = None,user = cls.user)
+        cls.task = Task(title = 'title task',text = 'text',date_finaly = None,user = cls.user)
+        cls.task2 = Task(title = 'title task',text = 'text',date_finaly = None,user = cls.user)
         cls.task.save()
+        cls.task2.save()
 
 
     @classmethod
@@ -88,6 +90,7 @@ class TasksTestCaseUnit(unittest.TestCase):
         super(TasksTestCaseUnit, cls).tearDownClass()
         cls.user.delete()
         cls.task.delete()
+        cls.task2.delete()
 
 
     def setUp(self):
@@ -123,11 +126,13 @@ class TasksTestCaseUnit(unittest.TestCase):
         response = self.client.put(reverse('TaskDetail', args=[self.task.id]), data)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
 
-
     def test_delete_task(self):
-        data = TaskSerializer(self.task).data
-        response = self.client.delete(reverse('TaskDetail',args=[self.task.id]),data, format='json' )
+        data = TaskSerializer(self.task2).data
+        response = self.client.delete(reverse('TaskDetail',args=[self.task2.id]),data, format='json' )
         self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
+
+
+
 
 
 
