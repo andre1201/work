@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import unittest
 
 from django.core.urlresolvers import reverse
@@ -8,6 +7,11 @@ from rest_framework.test import APITestCase, APIClient
 from .models import Task
 from django.contrib.auth.models import User
 from task.serializer import TaskSerializer
+
+
+#
+# руализация на APITestCase
+#
 
 class TaskTestCase(APITestCase):
 
@@ -34,7 +38,7 @@ class TaskTestCase(APITestCase):
     def test_create_task(self):
         data = {
             "title": "title",
-            "text": "teeeext"
+            "text": "teeeext",
         }
         response = self.client.post(reverse('TaskList'), data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -66,12 +70,15 @@ class TaskTestCase(APITestCase):
         self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
 
 
+#
+# руализация на unittest.TestCase
+#
 class TasksTestCaseUnit(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         super(TasksTestCaseUnit, cls).setUpClass()
-        cls.client = Client()
-        cls.user = User.objects.create_user('Andre','asdasd@sd.re',123123)
+        cls.client = APIClient()
+        cls.user = User.objects.create_superuser('Andre','asdasd@sd.re',123123)
         cls.task = Task(pk=2,title = 'title task',text = 'text',date_finaly = None,user = cls.user)
         cls.task.save()
 
@@ -85,15 +92,15 @@ class TasksTestCaseUnit(unittest.TestCase):
 
     def setUp(self):
         super(TasksTestCaseUnit, self).setUp()
-        self.client.login(username = 'Andre',password = '123123')
+        self.client.force_authenticate(user=self.user)
 
 
     def test_create_task(self):
         data = {
             "title": "title",
-            "text": "teeeext"
+            "text": "teeeext",
         }
-        response = self.client.post(reverse('TaskList'), json= data)
+        response = self.client.post(reverse('TaskList'),  data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
 
