@@ -61,12 +61,13 @@ class UserTestCase(APITestCase):
         response = self.client.put(reverse('DetailUser', args=[self.user.id]), data)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
 
-
+   #удаление себя(мы не можем удалить себя)
     def test_delete_user_self(self):
         data = UserSerializer(self.user).data
         response = self.client.delete(reverse('DetailUser',args=[self.user.id]),data, format='json' )
         self.assertEqual(response.status_code,status.HTTP_200_OK)
 
+   #удаление другого пользователя(не себя)
     def test_delete_user_other(self):
         test_user = User.objects.create_user('Test','asdasd@sd.re',1213123)
         data = UserSerializer(test_user).data
