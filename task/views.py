@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.models import User
-from django.views.generic import View
 from rest_framework import generics
 from rest_framework import filters
 from rest_framework.decorators import api_view
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+
 from rest_framework.views import APIView
-from restAuth import settings
-from django.http import HttpResponse
-from task.mixin import MixinTask, MixinTaskAdmin, MixinReport
-from secretary import Renderer
 
-
-
-# Поиск задач
+from task.mixin import MixinTask, MixinTaskAdmin
+from task.commons.MixinReport import MixinReport
 from task.models import Task
 
 
@@ -58,3 +53,5 @@ def api_root(request, format=None):
     return Response({
         'task': reverse('TaskList', request=request, format=format),
     })
+
+
