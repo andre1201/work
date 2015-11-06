@@ -3,6 +3,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -25,4 +26,3 @@ class UserPasswordSerializer(serializers.Serializer):
         update_session_auth_hash(self.context.get('request'), instance)
 
         return instance
-

@@ -57,8 +57,7 @@ ROOT_URLCONF = 'restAuth.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,20 +71,20 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
-    #auth user
+    # auth user
     'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
-        #'rest_framework.permissions.IsAdminUser',
+        # 'rest_framework.permissions.IsAdminUser',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
-    #'DEFAULT_RENDERER_CLASSES': (
+    # 'DEFAULT_RENDERER_CLASSES': (
     #    'rest_framework_xml.renderers.XMLRenderer',
-    #),
+    # ),
 
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'TEST_REQUEST_RENDERER_CLASSES': (
