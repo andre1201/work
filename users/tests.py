@@ -72,7 +72,7 @@ class UserTestCase(APITestCase):
         test_user = User.objects.create_user('Test','asdasd@sd.re',1213123)
         data = UserSerializer(test_user).data
         response = self.client.delete(reverse('DetailUser',args=[test_user.id]),data, format='json' )
-        self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
 
 
 #
@@ -138,7 +138,7 @@ class UserTestCaseUnittest(unittest.TestCase):
         test_user = User.objects.create_user('Test','asdasd@sd.re',1213123)
         data = UserSerializer(test_user).data
         response = self.client.delete(reverse('DetailUser',args=[test_user.id]),data, format='json' )
-        self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
 
 
 #
