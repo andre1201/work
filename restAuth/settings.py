@@ -83,6 +83,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    #'DEFAULT_RENDERER_CLASSES': (
+    #    'rest_framework_xml.renderers.XMLRenderer',
+    #),
 
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'TEST_REQUEST_RENDERER_CLASSES': (

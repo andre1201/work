@@ -19,7 +19,7 @@ class TaskTestCase(APITestCase):
     def setUpClass(cls):
         super(TaskTestCase, cls).setUpClass()
         cls.user = User.objects.create_user('Andre','asdasd@sd.re',123123)
-        cls.task = Task(pk=2,title = 'title task',text = 'text',date_finaly = None,user = cls.user)
+        cls.task = Task(title = 'title task',text = 'text',date_finaly = None,user = cls.user)
         cls.task.save()
 
 

@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^list/(?P<pk>\d+)$', views.TaskDetail.as_view() , name = 'TaskDetail'),
     url(r'^admin/$', views.TaskListAdmin.as_view() , name = 'TaskListAdmin'),
     url(r'^admin/(?P<pk>\d+)$', views.TaskDetailAdmin.as_view() , name = 'TaskDetailAdmin'),
-
+    url(r'^list/report/$', views.ReportTaskList.as_view() , name = 'Report'),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
 
