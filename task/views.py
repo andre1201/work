@@ -37,23 +37,14 @@ class TaskDetailAdmin(MixinTaskAdmin, generics.RetrieveUpdateDestroyAPIView):
     pass
 
 
-class TaskViewSet(viewsets.ViewSet):
+class TaskViewSet(viewsets.ModelViewSet):
 
-    def get_queryset(self,id=None):
-        if(id != None):
-            return Task.objects.filter(user=self.request.user).filter(pk=id)
+    serializer_class = TaskSerializer
+    def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
 
-    def get_serializer(self,id=None):
-        if(id != None):
-            return TaskSerializer(self.get_queryset(id),many=True)
-        return TaskSerializer(self.get_queryset(),many=True)
 
-    def list(self, request):
-        return Response(self.get_serializer().data)
 
-    def retrieve(self, request, pk=None):
-        return Response(self.get_serializer(pk).data)
 
 
 class ReportTaskList(APIView, MixinReport):
