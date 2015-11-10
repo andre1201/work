@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for restAuth project.
 
@@ -12,6 +13,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import socket
+
+
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,9 +28,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')ot+p568k^b8+f+ev(1w^ef!k0%2djmhmc9e(#qz+thk2#eb**'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+if socket.gethostname() == 'Имя домена для продакшена':
+    from restAuth.production_settings import *
+else:
+    from restAuth.developer_settings import *
+
+
+try:
+    from restAuth.local_settings import *
+except(ImportError):
+        pass
 
 
 # Application definition
@@ -102,10 +115,10 @@ WSGI_APPLICATION = 'restAuth.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rest_two',
-        'USER': 'andre',
-        'PASSWORD': '0200921',
+        'ENGINE': DATABASE_ENGINE,
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
     }
 }
 

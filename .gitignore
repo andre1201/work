@@ -1,3 +1,4 @@
 *.pyc
 .idea/
 media/
+restAuth/local_settings.py

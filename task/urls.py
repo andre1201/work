@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'^admin/$', views.TaskListAdmin.as_view(), name='TaskListAdmin'),
     url(r'^admin/(?P<pk>\d+)$', views.TaskDetailAdmin.as_view(), name='TaskDetailAdmin'),
     url(r'^list/report/$', views.ReportTaskList.as_view(), name='Report'),
+    url(r'^list/view/$', views.TaskViewSet.as_view({'get': 'list'}), name='TaskListVS'),
+    url(r'^list/view/(?P<pk>\d+)$', views.TaskViewSet.as_view({'get': 'retrieve'}), name='TaskDetailVS'),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
